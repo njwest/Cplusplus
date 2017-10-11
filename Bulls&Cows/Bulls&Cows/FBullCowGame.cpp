@@ -11,19 +11,15 @@
 using FString = std::string;
 using int32 = int;
 
-FBullCowGame::FBullCowGame() {
-    Reset();
-}
+FBullCowGame::FBullCowGame() { Reset(); }
 
-int32 FBullCowGame::GetMaxTries() const{
-    return MyMaxTries;
-}
+int32 FBullCowGame::GetMaxTries() const{ return MyMaxTries; }
 
-int32 FBullCowGame::GetCurrentTry() const{
-    return MyCurrentTry;
-}
+int32 FBullCowGame::GetCurrentTry() const{ return MyCurrentTry; }
 
-bool FBullCowGame::CheckGuessValidity(FString) {
+int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+
+bool FBullCowGame::CheckGuessValidity(FString) const{
     return 0;
 }
 
@@ -35,13 +31,11 @@ bool FBullCowGame::IsGameWon() const{
 
 void FBullCowGame::Reset() { 
     constexpr int32 MAX_TRIES = 8;
-    MyMaxTries = MAX_TRIES;
-    
     const FString HIDDEN_WORD = "planet";
+
+    MyMaxTries = MAX_TRIES;
     MyHiddenWord =  HIDDEN_WORD;
-    
     MyCurrentTry = 1;
- 
     return;
 }
 
@@ -54,7 +48,7 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess) {
     FBullCowCount BullCowCount;
     
     // loop through all letters in the guess
-    int32 HiddenWordLength = MyHiddenWord.length();
+    int32 HiddenWordLength = GetHiddenWordLength();
     
     // loop through all letters in the guess and the hidden word
     for (int32 i = 0; i < HiddenWordLength; i++) {
@@ -68,21 +62,24 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess) {
             }
         }
     }
-/* alternative method
- for (int32 i = 0; i < HiddenWordLength; i++) {
-     for (int32 j = 0; j < HiddenWordLength; j++){
-         if(Guess[j] == MyHiddenWord[i]) {
-             if (i == j) {
-                 BullCowCount.Bulls++;
-             } else {
-                 BullCowCount.Cows++;
+    /* alternative method
+     for (int32 i = 0; i < HiddenWordLength; i++) {
+         for (int32 j = 0; j < HiddenWordLength; j++){
+             if(Guess[j] == MyHiddenWord[i]) {
+                 if (i == j) {
+                     BullCowCount.Bulls++;
+                 } else {
+                     BullCowCount.Cows++;
+                 }
              }
          }
      }
- }
-*/
+    */
     
     return BullCowCount;
 }
+
+
+
 
 

@@ -28,11 +28,13 @@ public:
     
     int32 GetMaxTries() const;
     int32 GetCurrentTry() const;
-    bool IsGameWon() const;
+    int32 GetHiddenWordLength() const;
     
+    bool IsGameWon() const;
+    bool CheckGuessValidity(FString) const;
+
     void Reset(); //TODO make a richer return value
-    bool CheckGuessValidity(FString);
-    // counts bulls & cows, increments try number assuming a valid guess
+
     FBullCowCount SubmitGuess(FString Guess);
     
 private:

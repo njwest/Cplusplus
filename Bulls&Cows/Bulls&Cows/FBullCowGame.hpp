@@ -15,14 +15,23 @@
 using FString = std::string;
 using int32 = int;
 
-// all values initialized to zero
 struct FBullCowCount
 {
+    // all values initialized to zero
     int32 Bulls = 0;
     int32 Cows = 0;
 };
 
-class FBullCowGame {
+enum class EGuessStatus
+{
+    OK,
+    Not_Isogram,
+    Not_Lowercase,
+    Wrong_Length
+};
+
+class FBullCowGame
+{
 public:
     FBullCowGame(); //constructor
     
@@ -31,7 +40,7 @@ public:
     int32 GetHiddenWordLength() const;
     
     bool IsGameWon() const;
-    bool CheckGuessValidity(FString) const;
+    EGuessStatus CheckGuessValidity(FString) const;
 
     void Reset(); //TODO make a richer return value
 

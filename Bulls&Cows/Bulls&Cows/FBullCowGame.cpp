@@ -14,15 +14,21 @@ using int32 = int;
 FBullCowGame::FBullCowGame() { Reset(); }
 
 int32 FBullCowGame::GetMaxTries() const{ return MyMaxTries; }
-
 int32 FBullCowGame::GetCurrentTry() const{ return MyCurrentTry; }
-
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
 
-bool FBullCowGame::CheckGuessValidity(FString) const{
-    return 0;
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const{
+    
+    if (false) {
+        return EGuessStatus::Not_Isogram;
+    } else if (false) {
+        return EGuessStatus::Not_Lowercase;
+    } else if (GetHiddenWordLength() != Guess.length()) {
+        return EGuessStatus::Wrong_Length;
+    } else{
+        return EGuessStatus::OK;
+    }
 }
-
 
 bool FBullCowGame::IsGameWon() const{ 
     return 0;
@@ -47,7 +53,6 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess) {
     // setup a return variable
     FBullCowCount BullCowCount;
     
-    // loop through all letters in the guess
     int32 HiddenWordLength = GetHiddenWordLength();
     
     // loop through all letters in the guess and the hidden word

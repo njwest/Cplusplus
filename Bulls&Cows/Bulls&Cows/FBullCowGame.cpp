@@ -7,21 +7,28 @@
 //
 
 #include "FBullCowGame.hpp"
+#include <map>
+#define TMap std::map
 
 using FString = std::string;
 using int32 = int;
 
-FBullCowGame::FBullCowGame() { Reset(); }
+FBullCowGame::FBullCowGame() { Reset(); } // Default constructor
 
-int32 FBullCowGame::GetMaxTries() const{ return MyMaxTries; }
 int32 FBullCowGame::GetCurrentTry() const{ return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+bool FBullCowGame::IsGameWon() const{ return bHasWon; }
+
+int32 FBullCowGame::GetMaxTries() const{
+    TMap<int32, int32> WordLengthToMaxTries { {3,5}, {4,7}, {5,10}, {6,13}, {7,20} };
+    return WordLengthToMaxTries[MyHiddenWord.length()];
+}
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const{
     
-    if (false) {
+    if (!IsIsogram(Guess)) {
         return EGuessStatus::Not_Isogram;
-    } else if (false) {
+    } else if (!IsLowercase(Guess)) {
         return EGuessStatus::Not_Lowercase;
     } else if (GetHiddenWordLength() != Guess.length()) {
         return EGuessStatus::Wrong_Length;
@@ -30,21 +37,41 @@ EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const{
     }
 }
 
-bool FBullCowGame::IsGameWon() const{ 
-    if(bHasWon){
-        return 1;
-    } else {
-        return 0;
-    };
+bool FBullCowGame::IsIsogram(FString Word) const {
+    // treat 0 and 1 letter words as isograms
+    if (Word.length() <= 1) { return true; }
+    
+    // setup our map
+    TMap<char, bool> LetterSeen;
+    
+    for (auto Letter : Word){ // for all letters
+        
+        Letter = tolower(Letter); // handle mixed case
+        if (LetterSeen[Letter]){
+            return false;
+        } else{
+            LetterSeen[Letter] = true;
+        }
+    }
+    
+    return true;
+}
+
+bool FBullCowGame::IsLowercase(FString Word) const {
+    
+    for (auto Letter : Word){
+        if (!islower(Letter)){
+            return false;
+        }
+    }
+    return true;
 }
 
 
-void FBullCowGame::Reset() { 
-    constexpr int32 MAX_TRIES = 8;
+void FBullCowGame::Reset() {
     const FString HIDDEN_WORD = "planet";
-
-    MyMaxTries = MAX_TRIES;
-    MyHiddenWord =  HIDDEN_WORD;
+    MyHiddenWord = HIDDEN_WORD;
+    
     MyCurrentTry = 1;
     bHasWon = 0;
     return;
@@ -89,6 +116,28 @@ FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess){
 
     return BullCowCount;
 }
+
+FString FBullCowGame::GetHiddenWord(FString LengthInput) const {
+    auto MyHiddenWord = "";
+    if (LengthInput == "3"){
+         MyHiddenWord = "bat";
+    } else if (LengthInput == "4"){
+        MyHiddenWord = "gore";
+    } else if (LengthInput == "5"){
+        MyHiddenWord = "tombs";
+    } else if (LengthInput == "6"){
+        MyHiddenWord = "darken";
+    } else if (LengthInput == "7"){
+        MyHiddenWord = "vampire";
+    } else{
+        MyHiddenWord = "unloaded";
+    }
+    
+    return MyHiddenWord;
+}
+
+
+
 
 
 

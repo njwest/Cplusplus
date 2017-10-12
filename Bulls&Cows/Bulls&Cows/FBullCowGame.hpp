@@ -39,6 +39,7 @@ public:
     int32 GetMaxTries() const;
     int32 GetCurrentTry() const;
     int32 GetHiddenWordLength() const;
+    FString GetHiddenWord(FString) const;
     
     bool IsGameWon() const;
     EGuessStatus CheckGuessValidity(FString) const;
@@ -50,9 +51,10 @@ public:
 private:
     // see constructor for initial val
     int32 MyCurrentTry;
-    int32 MyMaxTries;
     FString MyHiddenWord;
     bool bHasWon;
+    
+    bool IsIsogram(FString) const;
+    bool IsLowercase(FString) const;
 };
-
 #endif /* FBullCowGame_hpp */

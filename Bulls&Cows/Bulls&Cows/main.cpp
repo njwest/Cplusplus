@@ -38,21 +38,21 @@ int32 main()
 
 
 void PrintIntro() {
-    std::cout << "Welcome to Bulls and Cows!\n" << std::endl;
+    std::cout << "**************************\nWelcome to Bulls and Cows!\n**************************" << std::endl;
     std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
     std::cout << " letter isogram I'm thinking of?\n";
     return;
 }
 
 
-void PlayGame(){
+void PlayGame() {
     BCGame.Reset();
     int32 MaxTries = BCGame.GetMaxTries();
-    
-    for (int32 count = 1; count <= MaxTries; count++) {     // TODO Change from FOR to WHILE loop
+    while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries){
+
         FText Guess = GetValidGuess(); // TODO Validate Guess
         
-        FBullCowCount BullCowCount = BCGame.SubmitGuess(Guess);
+        FBullCowCount BullCowCount = BCGame.SubmitValidGuess(Guess);
 
         std::cout << "Bulls = " << BullCowCount.Bulls;
         std::cout << ", Cows = " << BullCowCount.Cows << std::endl;
@@ -99,10 +99,15 @@ FText GetValidGuess() { // loop until the user gives a valid guess
 }
 
 bool AskToPlayAgain() {
+    if(BCGame.IsGameWon()){
+        std::cout << "\nCorrect! You won!\n";
+    } else{
+        std::cout << "\nGame over, you're out of guesses!\n";
+    }
     FText Response = "";
-    std::cout << "Do you want to play again (y/n)?";
+    std::cout << "\nDo you want to play again (y/n)?";
     std::getline(std::cin,Response);
-    
+    std::cout << std::endl;
     return (Response[0] == 'y' || Response[0] == 'Y');
 }
 

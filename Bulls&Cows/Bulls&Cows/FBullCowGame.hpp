@@ -45,13 +45,14 @@ public:
 
     void Reset(); //TODO make a richer return value
 
-    FBullCowCount SubmitGuess(FString Guess);
+    FBullCowCount SubmitValidGuess(FString Guess);
     
 private:
     // see constructor for initial val
     int32 MyCurrentTry;
     int32 MyMaxTries;
     FString MyHiddenWord;
+    bool bHasWon;
 };
 
 #endif /* FBullCowGame_hpp */

@@ -5,9 +5,12 @@
 //  Created by Nick on 10/10/17.
 //  Copyright © 2017 PangLong. All rights reserved.
 //
+#pragma once
 
 #include "FBullCowGame.hpp"
 #include <map>
+
+// Unreal syntax
 #define TMap std::map
 
 using FString = std::string;
@@ -41,12 +44,12 @@ bool FBullCowGame::IsIsogram(FString Word) const {
     // treat 0 and 1 letter words as isograms
     if (Word.length() <= 1) { return true; }
     
-    // setup our map
+    // set up our map
     TMap<char, bool> LetterSeen;
     
-    for (auto Letter : Word){ // for all letters
+    for (auto Letter : Word){
+        Letter = tolower(Letter);
         
-        Letter = tolower(Letter); // handle mixed case
         if (LetterSeen[Letter]){
             return false;
         } else{
@@ -69,7 +72,7 @@ bool FBullCowGame::IsLowercase(FString Word) const {
 
 
 void FBullCowGame::Reset() {
-    const FString HIDDEN_WORD = "planet";
+    const FString HIDDEN_WORD = "planet"; //This MUST be an isogram
     MyHiddenWord = HIDDEN_WORD;
     
     MyCurrentTry = 1;
@@ -135,11 +138,3 @@ FString FBullCowGame::GetHiddenWord(FString LengthInput) const {
     
     return MyHiddenWord;
 }
-
-
-
-
-
-
-
-

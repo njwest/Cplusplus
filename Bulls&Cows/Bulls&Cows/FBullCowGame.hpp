@@ -5,13 +5,17 @@
 //  Created by Nick on 10/10/17.
 //  Copyright © 2017 PangLong. All rights reserved.
 //
-#pragma once
+/* Game logic, no view code or direct user interaction */
+
+ #pragma once
+
 #ifndef FBullCowGame_hpp
 #define FBullCowGame_hpp
 
 #include <stdio.h>
 #include <string>
 
+// Unreal syntax values
 using FString = std::string;
 using int32 = int;
 
@@ -44,7 +48,7 @@ public:
     bool IsGameWon() const;
     EGuessStatus CheckGuessValidity(FString) const;
 
-    void Reset(); //TODO make a richer return value
+    void Reset();
 
     FBullCowCount SubmitValidGuess(FString Guess);
     
@@ -57,4 +61,5 @@ private:
     bool IsIsogram(FString) const;
     bool IsLowercase(FString) const;
 };
+
 #endif /* FBullCowGame_hpp */

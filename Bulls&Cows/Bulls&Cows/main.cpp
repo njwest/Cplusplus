@@ -10,19 +10,21 @@
  This acts as the view in a MVC pattern, and is responsible for all
  user interaction. For game logic, see the FBullCowGame class.
  */
+#pragma once
 
 #include <iostream>
 #include <string>
 #include "FBullCowGame.hpp"
 
+// Unreal syntax substitutions
 using FText = std::string;
 using int32 = int;
 
 void PrintIntro();
 void PlayGame();
 void GetWord();
-void GameOver();
 FText GetValidGuess();
+void GameOver();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame; // instantiate a new game
@@ -38,7 +40,6 @@ int32 main()
     return 0;
 }
 
-
 void PrintIntro() {
     
     std::cout << "**************************\nWelcome to Bulls and Cows!\n**************************\n" << std::endl;
@@ -47,8 +48,7 @@ void PrintIntro() {
     return;
 }
 
-
-
+// Plays a single game to completion
 void PlayGame() {
     BCGame.Reset();
 
@@ -130,5 +130,3 @@ bool AskToPlayAgain() {
     std::cout << std::endl;
     return (Response[0] == 'y' || Response[0] == 'Y');
 }
-
-
